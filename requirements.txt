@@ -1,0 +1,7 @@
+pymilvus
+pymilvus[bulk_writer]
+cuvs
+pylibraft
+numpy
+cupy
+scikit-learn
