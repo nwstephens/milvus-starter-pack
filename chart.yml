@@ -1,0 +1,53 @@
+image:
+  all:
+    repository: milvusdb/milvus
+    tag: v2.4.1-gpu
+extraConfigFiles:
+  user.yaml: |+
+    indexNode:
+      scheduler:
+        buildParallel: 1
+indexNode:
+  replicas: 1
+  #strategy: Recreate
+  scheduler:
+    buildParallel: 1
+  resources:
+    requests:
+      nvidia.com/gpu: "1"
+    limits:
+      nvidia.com/gpu: "1"
+  #extraEnv:
+  #- name: CUDA_VISIBLE_DEVICES
+  #  value: "1, 2, 3, 4, 5, 6, 7"
+
+queryNode:
+  replicas: 1
+  #strategy: Recreate
+  resources:
+    requests:
+      nvidia.com/gpu: "1"
+    limits:
+      nvidia.com/gpu: "1"
+  #extraEnv:
+  #- name: CUDA_VISIBLE_DEVICES
+  #  value: "1, 2, 3, 4, 5, 6, 7"
+minio:
+  zones: 2
+  resources:
+     limits:
+       cpu: 3
+       memory: 8Gi
+  persistence:
+    storageClass: raid-hostpath
+    storageClassName: raid-hostpath
+etcd:
+  persistence:
+    storageClass: raid-hostpath
+    storageClassName: raid-hostpath
+pulsar:
+  enabled: false
+kafka:
+  enabled: true
+  global:
+    storageClass: raid-hostpath
